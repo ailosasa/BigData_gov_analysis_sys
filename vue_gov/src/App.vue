@@ -43,14 +43,19 @@
           <div><input type="text"
                    class="qxs-ic_user qxs-icon"
                    placeholder="用户名"
-                   v-model="userName">
+                   v-model="userName"
+                   ref="login_name">
           </div>
           <div>
             <input type="text"
                    class="qxs-ic_password qxs-icon"
                    placeholder="密码"
-                   v-model="password"></div>
-          <div><button v-on:click="login">登陆</button></div>
+                   v-model="password"
+                   ref="login_password"></div>
+          <div>
+            <p ref="show"></p>
+            <mu-button v-on:click="login">登陆</mu-button>
+          </div>
         </div>
       </div>
 
@@ -222,11 +227,14 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'app',
   data () {
     return {
       docked: false,
+      identification: 'traveler',
       open: true,
       position: 'left',
       aspect: [{ name: 'shirong' }, { name: 'zhixu' }],
@@ -355,7 +363,7 @@ export default {
         }
       ],
       AnalysisGragh: [{ name: '图表主页' }, { name: '今日热度区域' }, { name: '近日诉求变化' }],
-      home_page_num: 2,
+      home_page_num: 0,
       AnalysisG_num: 0
     }
   },
@@ -372,26 +380,56 @@ export default {
     ToAnalysisPage () {
       this.home_page_num = 2
     },
-    drawLine () {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById('myChart'))
-      // 绘制图表
-      myChart.setOption({
-        title: { text: '在Vue中使用echarts' },
-        tooltip: {},
-        xAxis: {
-          data: ['乱摆乱放', '乱摆乱放', '乱摆乱放', '乱摆乱放', '乱摆乱放', '乱摆乱放']
-        },
-        yAxis: {},
-        series: [{
-          name: '数目',
-          type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
-        }]
+    login () {
+      var nm = this.$refs.login_name.value
+      var pw = this.$refs.login_password.value
+      axios.post('http://127.0.0.1:5000/authentication', {
+        name: nm,
+        password: pw
       })
+        .then(function (response) {
+          console.log(response)
+          if (response.data.Authentication === 'Yes') {
+            alert('Success ')
+          } else {
+            alert('Fail')
+          }
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+      // axios.get('http://127.0.0.1:5000/getMsg').then(function (response) {
+      //   // 这里服务器返回的 response 为一个 json object，可通过如下方法需要转成 json 字符串
+      //   // 可以直接通过 response.data 取key-value
+      //   // 坑一：这里不能直接使用 this 指针，不然找不到对象
+      //   var msg = response.data.msg
+      //   // 坑二：这里直接按类型解析，若再通过 JSON.stringify(msg) 转，会得到带双引号的字串
+      //   alert('Success ' + response.status + ', ' + response.data + ', ' + msg)
+      // }).catch(function (error) {
+      //   alert('Error ' + error)
+      // })
     }
+  },
+  drawLine () {
+    // 基于准备好的dom，初始化echarts实例
+    let myChart = this.$echarts.init(document.getElementById('myChart'))
+    // 绘制图表
+    myChart.setOption({
+      title: { text: '在Vue中使用echarts' },
+      tooltip: {},
+      xAxis: {
+        data: ['乱摆乱放', '乱摆乱放', '乱摆乱放', '乱摆乱放', '乱摆乱放', '乱摆乱放']
+      },
+      yAxis: {},
+      series: [{
+        name: '数目',
+        type: 'bar',
+        data: [5, 20, 36, 10, 10, 20]
+      }]
+    })
   }
 }
+
 </script>
 
 <style>
