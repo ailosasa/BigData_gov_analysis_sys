@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Project_GData.iml" filepath="$PROJECT_DIR$/.idea/Project_GData.iml" />
+      <module fileurl="file://E://Project_GData/../../Project_Data/.idea/Project_GData.iml" filepath="E://Project_GData/../../Project_Data/.idea/Project_GData.iml" />
+    </modules>
+  </component>
+</project>
