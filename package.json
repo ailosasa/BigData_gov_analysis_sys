@@ -1,0 +1,23 @@
+{
+  "name": "bigdata_gov_analysis_sys",
+  "version": "1.0.0",
+  "description": "&emsp;&emsp;2015年8 月，国务院印发的《促进大数据发展行动纲要》立足我国国情和现实需要，将打造精准治理、多方协作的社会治理新模式作为未来5-10年推动大数据发展和应用的目标之一。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"dev": "./node_modules/.bin/live-server --port=8001"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ailosasa/BigData_gov_analysis_sys.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ailosasa/BigData_gov_analysis_sys/issues"
+  },
+  "homepage": "https://github.com/ailosasa/BigData_gov_analysis_sys#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}

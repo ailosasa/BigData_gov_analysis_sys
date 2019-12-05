@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iframe子页面</title>
+</head>
+<body>
+    <h2>我是内嵌的子页面</h2>
+    <button id='btn'>子页面的按钮</button>
+    <div id="child" ></div>
+    <script>
+        window.addEventListener('message', function(e){
+            // if(data.code === "success")
+                document.getElementById('child').innerHTML = "大人时代变了" + e.data.data
+                console.log(e)        
+        })
+    </script>
+</body>
+</html>

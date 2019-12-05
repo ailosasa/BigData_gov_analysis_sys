@@ -1,8 +1,7 @@
-#coding:utf-8
 from flask import Flask, redirect, url_for, request, jsonify
 from flask_cors import CORS
 # from login_verify import check
-
+from  function import fun
 app = Flask(__name__)
 CORS(app, resources=r'/*')
 
@@ -18,37 +17,34 @@ def success(name):
 def false(name):
   return 'welcome %s' % name
    
-# @app.route('/authentication', methods=['GET', 'POST'])
-# def home():
-#   login_form = request.json if request.method == "POST" else request.args
-#   name = login_form["name"]
-#   password = login_form["password"]
-#   print(name)
-#   print(password)
-#   status = check(1, name, password)
-#   if(status == 1):
-#     response = {
-#         'Authentication': 'Yes'
-#     }
-#     return jsonify(response)
-#   else:
-#     response = {
-#         'AuAuthentic': 'No'
-#     }
-#     return jsonify(response)
+@app.route('/chartfunction', methods=['GET', 'POST'])
+def chart():
+  receive = request.json if request.method == "POST" else request.args
+  reqdata = receive["graphic_selection"]
+  type = reqdata["type"]
+  date1 = reqdata["date_start"]
+  date2 = reqdata["date_end"]
+  datetime1 = str(date1["year"])+'-'+str(date1["month"])+'-'+str(date1["day"])+' 00:00:00'
+  datetime2 = str(date2["year"])+'-'+str(date2["month"])+'-'+str(date2["day"])+' 00:00:00'
+  print(type)
+  print(date1)
+  print(datetime1)
+  print(date2)
+  print(datetime2)
+  result = fun(type, datetime1, datetime2)
+  response = {
+        "result" : result
+    }
+  return jsonify(response)
 
-@app.route('/authentication_test', methods=['GET', 'POST'])
-def home_test():
+@app.route('/authentication', methods=['GET', 'POST'])
+def home():
   login_form = request.json if request.method == "POST" else request.args
   name = login_form["name"]
   password = login_form["password"]
   print(name)
   print(password)
-  # status = check(1, name, password)
-
-  if(name == 'hty'): # 测试用
-    status = 1
-
+  status = 1
   if(status == 1):
     response = {
         'Authentication': 'Yes'
